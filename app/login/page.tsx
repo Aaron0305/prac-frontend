@@ -77,7 +77,7 @@ export default function LoginPage() {
                 if (response.user.role === "teacher") {
                     router.push("/teacher");
                 } else {
-                    router.push("/admin");
+                    router.push("/admin-teachers");
                 }
             }
         } catch (error) {

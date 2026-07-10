@@ -8,7 +8,7 @@ import FlowField from "@/components/ui/FlowField";
 import {
     ShieldCheck, Users, CheckCircle, Ban,
     X, Trash2, LogOut, ArrowLeft, UserPlus, AlertTriangle, GraduationCap,
-    Menu, Settings, CircleDollarSign, Store
+    Menu, Settings
 } from "lucide-react";
 import Image from "next/image";
 
@@ -144,29 +144,7 @@ export default function AdminTeachersPage() {
                                 </div>
                             </button>
 
-                            <button
-                                className="group flex flex-col items-start gap-1 px-4 py-3.5 rounded-2xl text-left border border-transparent hover:border-emerald-100 dark:hover:border-emerald-500/30 hover:bg-emerald-50 dark:hover:bg-emerald-500/10 transition-all select-none focus:outline-none"
-                                onClick={() => { setShowSuperAdminMenu(false); router.push("/admin"); }}
-                            >
-                                <div className="flex items-center gap-3 w-full">
-                                    <div className="p-2 rounded-xl bg-gray-100 dark:bg-slate-800 text-gray-500 dark:text-gray-400 group-hover:bg-emerald-100 dark:group-hover:bg-emerald-500/20 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
-                                        <CircleDollarSign className="w-5 h-5" />
-                                    </div>
-                                    <span className="font-semibold text-gray-700 dark:text-gray-200 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">Control de Pagos</span>
-                                </div>
-                            </button>
-
-                            <button
-                                className="group flex flex-col items-start gap-1 px-4 py-3.5 rounded-2xl text-left border border-transparent hover:border-purple-100 dark:hover:border-purple-500/30 hover:bg-purple-50 dark:hover:bg-purple-500/10 transition-all select-none focus:outline-none"
-                                onClick={() => { setShowSuperAdminMenu(false); router.push("/POS"); }}
-                            >
-                                <div className="flex items-center gap-3 w-full">
-                                    <div className="p-2 rounded-xl bg-gray-100 dark:bg-slate-800 text-gray-500 dark:text-gray-400 group-hover:bg-purple-100 dark:group-hover:bg-purple-500/20 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
-                                        <Store className="w-5 h-5" />
-                                    </div>
-                                    <span className="font-semibold text-gray-700 dark:text-gray-200 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">BreakTime POS</span>
-                                </div>
-                            </button>
+                            {/* Solo queda el módulo actual */}
                         </div>
 
                         {/* Footer del Sidebar */}
