@@ -8,8 +8,13 @@ import "./globals.css";
 // });
 
 export const metadata: Metadata = {
-  title: "What time is it? - Idiomas",
-  description: "Plataforma de aprendizaje de inglés",
+  title: "RedAI",
+  description: "Plataforma de consulta sobre Inteligencia Artificial: Un Enfoque Moderno",
+  icons: {
+    icon: "/openclaw.svg",
+    shortcut: "/openclaw.svg",
+    apple: "/openclaw.svg",
+  },
 };
 
 // Script para detectar tema antes del renderizado 

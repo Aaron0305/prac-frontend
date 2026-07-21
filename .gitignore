@@ -23,6 +23,18 @@
 # misc
 .DS_Store
 *.pem
+Thumbs.db
+
+# agent skills & ai tooling
+.agents/
+skills-lock.json
+design-system/
+.gemini/
+.cursor/
+
+# ide / editors
+.vscode/
+.idea/
 
 # debug
 npm-debug.log*
