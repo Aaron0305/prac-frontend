@@ -136,12 +136,12 @@ export default function AssignStudentsModal({ teacher, onClose, onSaveSuccess }:
                 {/* Header */}
                 <div className="px-6 py-5 flex items-start justify-between border-b" style={{ borderColor: "var(--border-color)" }}>
                     <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-blue-500 flex items-center justify-center shadow-lg shadow-indigo-500/20 shrink-0">
+                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#D97757] to-[#C06040] flex items-center justify-center shadow-lg shadow-[#D97757]/20 shrink-0">
                             <GraduationCap className="w-6 h-6 text-white" strokeWidth={2} />
                         </div>
                         <div>
                             <h3 className="text-lg font-bold" style={{ color: "var(--text-primary)" }}>Asignar Alumnos</h3>
-                            <p className="text-sm mt-0.5 font-medium text-blue-500 dark:text-blue-400">
+                            <p className="text-sm mt-0.5 font-medium text-[#D97757]">
                                 Maestro: {teacher.name}
                             </p>
                         </div>
@@ -164,7 +164,7 @@ export default function AssignStudentsModal({ teacher, onClose, onSaveSuccess }:
                             placeholder="Buscar alumno por nombre, matrícula o nivel..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full pl-11 pr-4 py-3 rounded-xl text-sm transition-all outline-none focus:ring-2 focus:ring-blue-500/50"
+                            className="w-full pl-11 pr-4 py-3 rounded-xl text-sm transition-all outline-none focus:ring-2 focus:ring-[#D97757]/50"
                             style={{ 
                                 background: "var(--input-bg)", 
                                 border: "1px solid var(--input-border)", 
@@ -176,7 +176,7 @@ export default function AssignStudentsModal({ teacher, onClose, onSaveSuccess }:
 
                     <div className="mb-4 flex items-center justify-between">
                         <span className="text-sm font-semibold uppercase tracking-wide" style={{ color: "var(--text-secondary)" }}>
-                            Alumnos seleccionados: <span className="text-blue-500">{assignedStudentIds.size}</span>
+                            Alumnos seleccionados: <span className="text-[#D97757]">{assignedStudentIds.size}</span>
                         </span>
                         <span className="text-xs font-medium" style={{ color: "var(--text-secondary)" }}>
                             Mostrando {showingFrom}-{showingTo} de {totalStudents}
@@ -185,7 +185,7 @@ export default function AssignStudentsModal({ teacher, onClose, onSaveSuccess }:
 
                     {isLoading ? (
                         <div className="flex justify-center items-center py-16">
-                            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-500" />
+                            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#D97757]" />
                         </div>
                     ) : students.length === 0 ? (
                         <div className="text-center py-12" style={{ color: "var(--text-secondary)" }}>
@@ -201,7 +201,7 @@ export default function AssignStudentsModal({ teacher, onClose, onSaveSuccess }:
                                         onClick={() => toggleStudent(student.id)}
                                         className={`p-3 rounded-xl border flex items-center justify-between cursor-pointer transition-all ${
                                             isSelected 
-                                                ? 'bg-blue-500/10 border-blue-500/50 dark:bg-blue-500/20' 
+                                                ? 'bg-[#D97757]/10 border-[#D97757]/50' 
                                                 : 'hover:bg-gray-500/5 transparent'
                                         }`}
                                         style={{ 
@@ -218,7 +218,7 @@ export default function AssignStudentsModal({ teacher, onClose, onSaveSuccess }:
                                             </p>
                                         </div>
                                         <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${
-                                            isSelected ? 'border-blue-500 bg-blue-500' : 'border-gray-400'
+                                            isSelected ? 'border-[#D97757] bg-[#D97757]' : 'border-gray-400'
                                         }`}>
                                             {isSelected && <CheckCircle className="w-3 h-3 text-white" strokeWidth={3} />}
                                         </div>
@@ -270,7 +270,7 @@ export default function AssignStudentsModal({ teacher, onClose, onSaveSuccess }:
                         onClick={handleSave}
                         disabled={isSaving}
                         className="px-6 py-2.5 text-sm text-white font-semibold rounded-xl transition-all hover:opacity-90 disabled:opacity-50 flex items-center gap-2"
-                        style={{ background: "linear-gradient(135deg, #014287, #1e5fc2)" }}
+                        style={{ background: "linear-gradient(135deg, #D97757, #C06040)" }}
                     >
                         {isSaving ? "Guardando..." : "Guardar Asignaciones"}
                     </button>

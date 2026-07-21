@@ -128,11 +128,11 @@ function NameDialog({ day, startSlot, endSlot, clientX, clientY, onConfirm, onCa
             onMouseDown={(e) => e.stopPropagation()}
         >
             {/* Barra de información */}
-            <div className="px-4 py-3" style={{ background: "rgba(249,115,22,0.08)", borderBottom: "1px solid rgba(249,115,22,0.2)" }}>
-                <p className="text-[10px] font-black uppercase tracking-widest text-orange-500">{day}</p>
+            <div className="px-4 py-3" style={{ background: "rgba(217,119,87,0.08)", borderBottom: "1px solid rgba(217,119,87,0.2)" }}>
+                <p className="text-[10px] font-black uppercase tracking-widest text-[#D97757]">{day}</p>
                 <p className="text-sm font-bold mt-0.5" style={{ color: "var(--text-primary)" }}>
                     {start} – {end}
-                    {dur && <span className="ml-2 text-xs font-normal text-orange-500">({dur})</span>}
+                    {dur && <span className="ml-2 text-xs font-normal text-[#D97757]">({dur})</span>}
                 </p>
             </div>
 
@@ -174,7 +174,7 @@ function NameDialog({ day, startSlot, endSlot, clientX, clientY, onConfirm, onCa
                     <button
                         onClick={() => onConfirm(name)}
                         className="flex-1 py-2.5 rounded-xl text-sm font-bold text-white transition-all"
-                        style={{ background: "linear-gradient(135deg,#f97316,#fbbf24)", boxShadow: "0 3px 10px rgba(249,115,22,.4)" }}
+                        style={{ background: "linear-gradient(135deg, #D97757, #C06040)", boxShadow: "0 3px 10px rgba(217,119,87,.4)" }}
                     >
                         ✓ Crear clase
                     </button>
@@ -580,7 +580,7 @@ export default function TeacherScheduleModal({ teacher, onClose, onSaveSuccess }
                                     Asignar Horario Semanal
                                 </h3>
                                 <p className="text-sm font-semibold mt-0.5" style={{ color: "var(--text-secondary)" }}>
-                                    <span className="text-orange-500">{teacher.name}</span>
+                                    <span className="text-[#D97757]">{teacher.name}</span>
                                     {" · "}
                                     {schedule.length === 0 ? "Sin clases asignadas" : `${schedule.length} clase${schedule.length !== 1 ? "s" : ""} asignada${schedule.length !== 1 ? "s" : ""}`}
                                 </p>
@@ -606,9 +606,9 @@ export default function TeacherScheduleModal({ teacher, onClose, onSaveSuccess }
                     {/* ══════ HINT BAR ════════════════════════════════════════ */}
                     <div
                         className="px-6 py-3 shrink-0 flex items-center gap-2.5"
-                        style={{ background: "rgba(249,115,22,0.06)", borderBottom: "1px solid rgba(249,115,22,0.12)" }}
+                        style={{ background: "rgba(217,119,87,0.06)", borderBottom: "1px solid rgba(217,119,87,0.12)" }}
                     >
-                        <MousePointer2 className="w-4 h-4 text-orange-500 shrink-0" />
+                        <MousePointer2 className="w-4 h-4 text-[#D97757] shrink-0" />
                         <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
                             <strong style={{ color: "var(--text-primary)" }}>Haz clic y arrastra</strong> en el calendario para agregar una clase
                             {" · "}

@@ -7,7 +7,6 @@ import {
     GraduationCap, Eye, EyeOff, Check, Shield,
     AlertCircle, Mail, Lock, User, Calendar
 } from "lucide-react";
-import LiquidGlassCard from "@/components/ui/liquid-glass-card";
 import AssignStudentsModal from "@/app/admin-teachers/components/AssignStudentsModal";
 import TeacherScheduleModal from "@/app/admin-teachers/components/TeacherScheduleModal";
 
@@ -184,27 +183,6 @@ export default function TeacherPanel({ userRole }: TeacherPanelProps) {
         }
     };
 
-    const handleCardMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-        const el = e.currentTarget;
-        const rect = el.getBoundingClientRect();
-        const normX = (e.clientX - rect.left) / rect.width;
-        const normY = (e.clientY - rect.top) / rect.height;
-        const rotateX = (0.5 - normY) * 9;
-        const rotateY = (normX - 0.5) * 9;
-
-        el.style.setProperty("--tilt-rx", `${rotateX.toFixed(2)}deg`);
-        el.style.setProperty("--tilt-ry", `${rotateY.toFixed(2)}deg`);
-        el.style.setProperty("--glow-x", `${(normX * 100).toFixed(1)}%`);
-        el.style.setProperty("--glow-y", `${(normY * 100).toFixed(1)}%`);
-    };
-
-    const handleCardMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-        const el = e.currentTarget;
-        el.style.setProperty("--tilt-rx", "0deg");
-        el.style.setProperty("--tilt-ry", "0deg");
-        el.style.setProperty("--glow-opacity", "0");
-    };
-
     // ── Access denied ────────────────────────────────────────────────────────
     if (userRole !== "superadmin" && userRole !== "admin") {
         return (
@@ -212,8 +190,8 @@ export default function TeacherPanel({ userRole }: TeacherPanelProps) {
                 <div className="w-20 h-20 bg-red-500/10 rounded-full flex items-center justify-center mb-6">
                     <Ban className="w-10 h-10 text-red-500" />
                 </div>
-                <h2 className="text-2xl font-bold mb-2" style={{ color: "var(--text-primary)" }}>Acceso Denegado</h2>
-                <p style={{ color: "var(--text-secondary)" }} className="max-w-md">
+                <h2 className="text-2xl font-bold mb-2 text-[#F5EDE6]">Acceso Denegado</h2>
+                <p className="text-[#7D6860] max-w-md">
                     Solo los administradores tienen permisos para ver y gestionar las cuentas de maestros.
                 </p>
             </div>
@@ -222,7 +200,7 @@ export default function TeacherPanel({ userRole }: TeacherPanelProps) {
 
     // ── Render ───────────────────────────────────────────────────────────────
     return (
-        <div className="space-y-6 animate-fade-in relative">
+        <div className="space-y-6 animate-fade-in relative text-[#F5EDE6]">
 
             {/* ── Toast ── */}
             {saveMessage && (
@@ -237,15 +215,15 @@ export default function TeacherPanel({ userRole }: TeacherPanelProps) {
             {/* ── Header ── */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h2 className="text-2xl font-bold" style={{ color: "var(--text-primary)" }}>Gestión de Docentes</h2>
-                    <p className="mt-1 text-sm" style={{ color: "var(--text-secondary)" }}>
+                    <h2 className="text-2xl font-bold text-[#F5EDE6]">Gestión de Docentes</h2>
+                    <p className="mt-1 text-sm text-[#7D6860]">
                         Cuentas con acceso a la plataforma para el panel de maestros.
                     </p>
                 </div>
                 <button
                     onClick={() => setShowCreateModal(true)}
-                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-white text-sm font-semibold transition-all hover:opacity-90 shadow-md shadow-blue-500/20"
-                    style={{ background: "linear-gradient(135deg, #014287, #1e5fc2)" }}
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-white text-sm font-bold transition-all hover:-translate-y-0.5 shadow-lg shadow-[#D97757]/25 hover:shadow-[#D97757]/40"
+                    style={{ background: "linear-gradient(135deg, #D97757, #C06040)" }}
                 >
                     <UserPlus className="w-4 h-4" strokeWidth={2} />
                     Nuevo Teacher
@@ -254,100 +232,59 @@ export default function TeacherPanel({ userRole }: TeacherPanelProps) {
 
             {/* ── Dashboard Stats ── */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
-                <LiquidGlassCard
-                    className="transition-all hover:scale-[1.01]"
-                    style={{ borderColor: "var(--border-color)", boxShadow: "0 8px 22px rgba(15, 23, 42, 0.08)" }}
-                >
-                    <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-2xl bg-blue-500/20 flex items-center justify-center">
-                            <GraduationCap className="w-6 h-6 text-blue-400" />
-                        </div>
-                        <div>
-                            <p className="text-xs font-bold uppercase tracking-widest text-blue-400/80">Total Docentes</p>
-                            <h4 className="text-3xl font-black" style={{ color: "var(--text-primary)" }}>{teachers.length}</h4>
-                        </div>
+                <div className="p-6 rounded-2xl border border-[#1E1410] bg-[#120E0C] flex items-center gap-5 transition-all hover:scale-[1.01] hover:border-[#D97757]/30 shadow-sm group">
+                    <div className="w-12 h-12 rounded-xl bg-[#1A1210] border border-[#1E1410] flex items-center justify-center text-[#D97757] group-hover:bg-[#D97757]/10 transition-colors">
+                        <GraduationCap className="w-6 h-6 text-[#D97757]" />
                     </div>
-                </LiquidGlassCard>
-                <LiquidGlassCard
-                    className="transition-all hover:scale-[1.01]"
-                    style={{ borderColor: "var(--border-color)", boxShadow: "0 8px 22px rgba(15, 23, 42, 0.08)" }}
-                >
-                    <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-2xl bg-orange-500/20 flex items-center justify-center">
-                            <Calendar className="w-6 h-6 text-orange-400" />
-                        </div>
-                        <div>
-                            <p className="text-xs font-bold uppercase tracking-widest text-orange-400/80">Horas / Sem (Total)</p>
-                            <h4 className="text-3xl font-black" style={{ color: "var(--text-primary)" }}>
-                                {formatHours(totalWeeklyHours)}h
-                            </h4>
-                        </div>
+                    <div>
+                        <p className="text-xs font-bold uppercase tracking-widest text-[#D97757] opacity-80">Total Docentes</p>
+                        <h4 className="text-3xl font-black text-[#F5EDE6]">{teachers.length}</h4>
                     </div>
-                </LiquidGlassCard>
+                </div>
+                <div className="p-6 rounded-2xl border border-[#1E1410] bg-[#120E0C] flex items-center gap-5 transition-all hover:scale-[1.01] hover:border-[#D97757]/30 shadow-sm group">
+                    <div className="w-12 h-12 rounded-xl bg-[#1A1210] border border-[#1E1410] flex items-center justify-center text-[#E8C4A8] group-hover:bg-[#E8C4A8]/10 transition-colors">
+                        <Calendar className="w-6 h-6 text-[#E8C4A8]" />
+                    </div>
+                    <div>
+                        <p className="text-xs font-bold uppercase tracking-widest text-[#E8C4A8] opacity-80">Horas / Sem (Total)</p>
+                        <h4 className="text-3xl font-black text-[#F5EDE6]">
+                            {formatHours(totalWeeklyHours)}h
+                        </h4>
+                    </div>
+                </div>
             </div>
 
             {/* ── Grid de Tarjetas (Teachers) ── */}
             {isLoading ? (
                 <div className="flex flex-col items-center justify-center py-24 space-y-4">
-                    <div className="w-12 h-12 border-4 border-blue-500/20 border-t-blue-500 rounded-full animate-spin" />
-                    <p className="text-blue-400 font-medium animate-pulse">Sincronizando plantilla...</p>
+                    <div className="w-12 h-12 border-4 border-[#D97757]/20 border-t-[#D97757] rounded-full animate-spin" />
+                    <p className="text-[#D97757] font-medium animate-pulse">Sincronizando plantilla...</p>
                 </div>
             ) : teachers.length === 0 ? (
-                <div className="flex flex-col items-center justify-center py-24 text-center rounded-[3rem] border-2 border-dashed border-white/5 bg-white/5">
-                    <GraduationCap className="w-16 h-16 mb-4" style={{ color: "var(--text-secondary)", opacity: 0.3 }} />
-                    <h3 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>No hay docentes registrados</h3>
-                    <p className="max-w-xs mx-auto mt-2" style={{ color: "var(--text-secondary)" }}>Comienza agregando un nuevo profesor para gestionar sus clases.</p>
+                <div className="flex flex-col items-center justify-center py-24 text-center rounded-[3rem] border border-dashed border-[#1E1410] bg-[#120E0C]/50">
+                    <GraduationCap className="w-16 h-16 mb-4 text-[#7D6860] opacity-50" />
+                    <h3 className="text-xl font-bold text-[#F5EDE6]">No hay docentes registrados</h3>
+                    <p className="max-w-xs mx-auto mt-2 text-[#7D6860]">Comienza agregando un nuevo profesor para gestionar sus clases.</p>
                 </div>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {teachers.map((teacher) => (
-                        (() => {
-                            const teacherHours = getTeacherWeeklyHours(teacher.schedule);
-                            const accentColor = teacher.status === "active" ? "#22c55e" : "#60a5fa";
-                            const isDimmed = hoveredTeacherId !== null && hoveredTeacherId !== teacher.id;
-                            return (
-                        <div
-                            key={teacher.id}
-                            className="group relative rounded-[2.5rem] p-1 overflow-hidden transition-all duration-300"
-                            onMouseMove={handleCardMouseMove}
-                            onMouseEnter={(e) => {
-                                setHoveredTeacherId(teacher.id);
-                                e.currentTarget.style.setProperty("--glow-opacity", "1");
-                            }}
-                            onMouseLeave={(e) => {
-                                setHoveredTeacherId(null);
-                                handleCardMouseLeave(e);
-                            }}
-                            style={{ 
-                                transform: "perspective(900px) rotateX(var(--tilt-rx, 0deg)) rotateY(var(--tilt-ry, 0deg))",
-                                background: "linear-gradient(145deg, var(--surface) 0%, var(--surface-alt) 100%)",
-                                border: "1px solid var(--border-color)",
-                                boxShadow: "0 10px 24px rgba(15, 23, 42, 0.08)",
-                                opacity: isDimmed ? 0.55 : 1,
-                                scale: isDimmed ? "0.98" : "1",
-                                transition: "transform .2s ease, opacity .2s ease, scale .2s ease",
-                            }}
-                        >
+                    {teachers.map((teacher) => {
+                        const teacherHours = getTeacherWeeklyHours(teacher.schedule);
+                        const isDimmed = hoveredTeacherId !== null && hoveredTeacherId !== teacher.id;
+                        
+                        return (
                             <div
-                                aria-hidden="true"
-                                className="pointer-events-none absolute inset-0 rounded-[2.5rem]"
-                                style={{
-                                    background: `radial-gradient(ellipse at 20% 20%, ${accentColor}16, transparent 65%)`,
+                                key={teacher.id}
+                                className="group relative rounded-2xl p-6 transition-all duration-300 border border-[#1E1410] bg-[#1A1210] hover:border-[#D97757]/40 flex flex-col"
+                                onMouseEnter={() => setHoveredTeacherId(teacher.id)}
+                                onMouseLeave={() => setHoveredTeacherId(null)}
+                                style={{ 
+                                    opacity: isDimmed ? 0.6 : 1,
+                                    transform: isDimmed ? "scale(0.98)" : "scale(1)",
+                                    boxShadow: isDimmed ? "none" : "0 10px 24px rgba(13, 10, 9, 0.5)",
                                 }}
-                            />
-                            <div
-                                aria-hidden="true"
-                                className="pointer-events-none absolute inset-0 rounded-[2.5rem]"
-                                style={{
-                                    opacity: "var(--glow-opacity, 0)",
-                                    transition: "opacity .08s linear",
-                                    background: `radial-gradient(380px circle at var(--glow-x, 50%) var(--glow-y, 50%), ${accentColor}2b, transparent 58%)`,
-                                }}
-                            />
-
-                            <div className="relative overflow-hidden rounded-[2.4rem] backdrop-blur-xl p-6 h-full flex flex-col" style={{ background: "var(--surface)" }}>
-                                
-                                {/* Status Badge Float */}
+                            >
+                                {/* Status Badge */}
                                 <div className="absolute top-4 right-4">
                                     <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-tighter border ${
                                         teacher.status === 'active' 
@@ -359,34 +296,34 @@ export default function TeacherPanel({ userRole }: TeacherPanelProps) {
                                 </div>
 
                                 <div className="flex items-center gap-4 mb-6">
-                                    <div className="w-16 h-16 rounded-3xl bg-gradient-to-tr from-blue-600 to-indigo-600 p-0.5 shadow-xl shadow-blue-500/20 group-hover:rotate-6 transition-transform duration-500">
-                                        <div className="w-full h-full rounded-[1.4rem] flex items-center justify-center text-2xl font-black text-white" style={{ background: "var(--accent-primary)" }}>
+                                    <div className="w-16 h-16 rounded-3xl bg-gradient-to-tr from-[#D97757] to-[#C06040] flex items-center justify-center shadow-lg shadow-[#D97757]/20 group-hover:rotate-6 transition-transform duration-500">
+                                        <div className="text-2xl font-black text-white">
                                             {teacher.name.charAt(0)}
                                         </div>
                                     </div>
-                                    <div className="min-w-0">
-                                        <h3 className="text-lg font-bold truncate leading-tight group-hover:text-blue-500 transition-colors" style={{ color: "var(--text-primary)" }}>{teacher.name}</h3>
-                                        <p className="text-xs truncate mt-0.5" style={{ color: "var(--text-secondary)" }}>{teacher.email}</p>
+                                    <div className="min-w-0 flex-1 pr-12">
+                                        <h3 className="text-lg font-bold truncate leading-tight group-hover:text-[#E8C4A8] transition-colors text-[#F5EDE6]">{teacher.name}</h3>
+                                        <p className="text-xs truncate mt-0.5 text-[#7D6860]">{teacher.email}</p>
                                     </div>
                                 </div>
 
                                 {/* Mini Schedule Preview */}
                                 <div className="flex-1 space-y-3 mb-6">
-                                    <div className="flex items-center justify-between text-[11px] font-bold uppercase tracking-widest pb-2" style={{ color: "var(--text-secondary)", borderBottom: "1px solid var(--border-color)" }}>
+                                    <div className="flex items-center justify-between text-[11px] font-bold uppercase tracking-widest pb-2 border-b border-[#1E1410] text-[#7D6860]">
                                         <span>Horario Semanal</span>
                                     </div>
-                                    <div className="flex items-center justify-between px-2 py-1.5 rounded-lg" style={{ background: "var(--surface-alt)", border: "1px solid var(--border-color)" }}>
-                                        <span className="text-[11px] font-semibold" style={{ color: "var(--text-secondary)" }}>Total semanal</span>
-                                        <span className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>{formatHours(teacherHours)}h</span>
+                                    <div className="flex items-center justify-between px-3 py-2 rounded-lg bg-[#120E0C] border border-[#1E1410]">
+                                        <span className="text-[11px] font-semibold text-[#7D6860]">Total semanal</span>
+                                        <span className="text-sm font-bold text-[#F5EDE6]">{formatHours(teacherHours)}h</span>
                                     </div>
                                     <div className="flex flex-wrap gap-1.5">
                                         {(teacher.schedule as any[])?.slice(0, 3).map((b, i) => (
-                                            <span key={i} className="px-2 py-1 rounded-lg text-[10px] border" style={{ background: "var(--surface-alt)", color: "var(--text-secondary)", borderColor: "var(--border-color)" }}>
+                                            <span key={i} className="px-2 py-1 rounded-lg text-[10px] bg-[#120E0C] text-[#7D6860] border border-[#1E1410]">
                                                 {b.day.substring(0, 3)} {b.start}
                                             </span>
-                                        )) || <span className="text-[11px] italic" style={{ color: "var(--text-secondary)" }}>Sin horario definido</span>}
+                                        )) || <span className="text-[11px] italic text-[#7D6860]">Sin horario definido</span>}
                                         {((teacher.schedule as any[])?.length > 3) && (
-                                            <span className="px-2 py-1 rounded-lg bg-blue-500/10 text-[10px] text-blue-400">
+                                            <span className="px-2 py-1 rounded-lg bg-[#D97757]/10 text-[10px] text-[#D97757]">
                                                 +{(teacher.schedule as any[]).length - 3}
                                             </span>
                                         )}
@@ -394,48 +331,39 @@ export default function TeacherPanel({ userRole }: TeacherPanelProps) {
                                 </div>
 
                                 {/* Action Buttons Grid */}
-                                <div className="grid grid-cols-4 gap-2">
+                                <div className="grid grid-cols-4 gap-2 mt-auto">
                                     <button
                                         onClick={() => setTeacherForStudents(teacher)}
-                                        className="p-3 rounded-2xl bg-blue-500/10 text-blue-400 hover:bg-blue-500 hover:text-white transition-all duration-300 group/btn shadow-lg shadow-blue-500/5"
+                                        className="p-3 rounded-xl bg-[#120E0C] border border-[#1E1410] text-[#E8C4A8] hover:bg-[#E8C4A8]/10 hover:border-[#E8C4A8]/30 transition-all duration-300 group/btn"
                                         title="Estudiantes"
                                     >
                                         <Users className="w-5 h-5 mx-auto group-hover/btn:scale-110" />
                                     </button>
                                     <button
                                         onClick={() => setTeacherForSchedule(teacher)}
-                                        className="p-3 rounded-2xl bg-orange-500/10 text-orange-400 hover:bg-orange-500 hover:text-white transition-all duration-300 group/btn shadow-lg shadow-orange-500/5"
+                                        className="p-3 rounded-xl bg-[#120E0C] border border-[#1E1410] text-[#D97757] hover:bg-[#D97757]/10 hover:border-[#D97757]/30 transition-all duration-300 group/btn"
                                         title="Horario"
                                     >
                                         <Calendar className="w-5 h-5 mx-auto group-hover/btn:scale-110" />
                                     </button>
                                     <button
                                         onClick={() => handleToggleStatus(teacher.id, teacher.status)}
-                                        className="p-3 rounded-2xl bg-amber-500/10 text-amber-400 hover:bg-amber-500 hover:text-white transition-all duration-300 group/btn"
+                                        className="p-3 rounded-xl bg-[#120E0C] border border-[#1E1410] text-amber-500 hover:bg-amber-500/10 hover:border-amber-500/30 transition-all duration-300 group/btn"
                                         title="Estado"
                                     >
                                         <Ban className="w-5 h-5 mx-auto group-hover/btn:scale-110" />
                                     </button>
                                     <button
                                         onClick={() => handleDelete(teacher)}
-                                        className="p-3 rounded-2xl bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white transition-all duration-300 group/btn"
+                                        className="p-3 rounded-xl bg-[#120E0C] border border-[#1E1410] text-red-500 hover:bg-red-500/10 hover:border-red-500/30 transition-all duration-300 group/btn"
+                                        title="Eliminar"
                                     >
                                         <Trash2 className="w-5 h-5 mx-auto group-hover/btn:scale-110" />
                                     </button>
                                 </div>
-
-                                <div
-                                    aria-hidden="true"
-                                    className="absolute bottom-0 left-0 h-[2px] w-0 rounded-full transition-all duration-500 group-hover:w-full"
-                                    style={{
-                                        background: `linear-gradient(to right, ${accentColor}99, transparent)`,
-                                    }}
-                                />
                             </div>
-                        </div>
-                            );
-                        })()
-                    ))}
+                        );
+                    })}
                 </div>
             )}
 
@@ -446,28 +374,23 @@ export default function TeacherPanel({ userRole }: TeacherPanelProps) {
             {showCreateModal && (
                 <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
                     <div
-                        className="modal-content rounded-2xl w-full max-w-md shadow-2xl"
-                        style={{
-                            background: "var(--modal-bg)",
-                            border: "1px solid var(--border-color)",
-                            animation: "scaleIn .18s ease",
-                        }}
+                        className="rounded-2xl w-full max-w-md shadow-2xl bg-[#1A1210] border border-[#1E1410]"
+                        style={{ animation: "scaleIn .18s ease" }}
                     >
                         {/* Header */}
-                        <div className="px-6 pt-6 pb-5 flex items-start justify-between" style={{ borderBottom: "1px solid var(--border-color)" }}>
+                        <div className="px-6 pt-6 pb-5 flex items-start justify-between border-b border-[#1E1410]">
                             <div className="flex items-center gap-3">
-                                <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/25 shrink-0">
+                                <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#D97757] to-[#C06040] flex items-center justify-center shadow-lg shadow-[#D97757]/20 shrink-0">
                                     <UserPlus className="w-5 h-5 text-white" strokeWidth={2} />
                                 </div>
                                 <div>
-                                    <h3 className="text-base font-bold leading-tight" style={{ color: "var(--text-primary)" }}>Nuevo Teacher</h3>
-                                    <p className="text-xs mt-0.5" style={{ color: "var(--text-secondary)" }}>Completa todos los campos para crear la cuenta.</p>
+                                    <h3 className="text-base font-bold leading-tight text-[#F5EDE6]">Nuevo Teacher</h3>
+                                    <p className="text-xs mt-0.5 text-[#7D6860]">Completa todos los campos para crear la cuenta.</p>
                                 </div>
                             </div>
                             <button
                                 onClick={() => setShowCreateModal(false)}
-                                className="p-1.5 hover:bg-gray-500/10 rounded-lg transition-colors"
-                                style={{ color: "var(--text-secondary)" }}
+                                className="p-1.5 hover:bg-white/5 rounded-lg transition-colors text-[#7D6860]"
                             >
                                 <X className="w-4 h-4" strokeWidth={2} />
                             </button>
@@ -478,7 +401,7 @@ export default function TeacherPanel({ userRole }: TeacherPanelProps) {
 
                             {/* Nombre */}
                             <div>
-                                <label className="flex items-center gap-1.5 text-xs font-semibold tracking-wide uppercase mb-1.5" style={{ color: "var(--text-secondary)" }}>
+                                <label className="flex items-center gap-1.5 text-xs font-semibold tracking-wide uppercase mb-1.5 text-[#7D6860]">
                                     <User className="w-3.5 h-3.5" strokeWidth={2.5} /> Nombre y Apellido
                                 </label>
                                 <input
@@ -486,8 +409,8 @@ export default function TeacherPanel({ userRole }: TeacherPanelProps) {
                                     value={formData.name}
                                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                     placeholder="Nombre completo del teacher"
-                                    className="w-full px-4 py-2.5 rounded-xl text-sm transition-all outline-none"
-                                    style={{ background: "var(--input-bg)", border: `1px solid ${formErrors.name ? "#ef4444" : "var(--input-border)"}`, color: "var(--text-primary)" }}
+                                    className="w-full px-4 py-2.5 rounded-xl text-sm transition-all outline-none bg-[#120E0C] text-[#F5EDE6]"
+                                    style={{ border: `1px solid ${formErrors.name ? "#ef4444" : "#1E1410"}` }}
                                 />
                                 {formErrors.name && (
                                     <p className="mt-1.5 flex items-center gap-1 text-xs text-red-400">
@@ -498,25 +421,21 @@ export default function TeacherPanel({ userRole }: TeacherPanelProps) {
 
                             {/* Email */}
                             <div>
-                                <label className="flex items-center gap-1.5 text-xs font-semibold tracking-wide uppercase mb-1.5" style={{ color: "var(--text-secondary)" }}>
+                                <label className="flex items-center gap-1.5 text-xs font-semibold tracking-wide uppercase mb-1.5 text-[#7D6860]">
                                     <Mail className="w-3.5 h-3.5" strokeWidth={2.5} /> Correo Electrónico (Login)
                                 </label>
                                 <div
-                                    className="flex items-center rounded-xl overflow-hidden transition-all"
-                                    style={{ background: "var(--input-bg)", border: `1px solid ${formErrors.email ? "#ef4444" : "var(--input-border)"}` }}
+                                    className="flex items-center rounded-xl overflow-hidden transition-all bg-[#120E0C]"
+                                    style={{ border: `1px solid ${formErrors.email ? "#ef4444" : "#1E1410"}` }}
                                 >
                                     <input
                                         type="text"
                                         value={formData.email}
                                         onChange={(e) => setFormData({ ...formData, email: e.target.value.replace(/@.*/, "") })}
                                         placeholder="nombre.apellido"
-                                        className="flex-1 px-4 py-2.5 text-sm outline-none bg-transparent"
-                                        style={{ color: "var(--text-primary)" }}
+                                        className="flex-1 px-4 py-2.5 text-sm outline-none bg-transparent text-[#F5EDE6]"
                                     />
-                                    <span
-                                        className="pr-4 text-sm font-medium select-none shrink-0"
-                                        style={{ color: "var(--text-secondary)" }}
-                                    >
+                                    <span className="pr-4 text-sm font-medium select-none shrink-0 text-[#7D6860]">
                                         @whattimeisit.com
                                     </span>
                                 </div>
@@ -532,7 +451,7 @@ export default function TeacherPanel({ userRole }: TeacherPanelProps) {
 
                                 {/* Contraseña */}
                                 <div>
-                                    <label className="flex items-center gap-1.5 text-xs font-semibold tracking-wide uppercase mb-1.5" style={{ color: "var(--text-secondary)" }}>
+                                    <label className="flex items-center gap-1.5 text-xs font-semibold tracking-wide uppercase mb-1.5 text-[#7D6860]">
                                         <Lock className="w-3.5 h-3.5" strokeWidth={2.5} /> Contraseña
                                     </label>
                                     <div className="relative">
@@ -541,14 +460,13 @@ export default function TeacherPanel({ userRole }: TeacherPanelProps) {
                                             value={formData.password}
                                             onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                                             placeholder="••••••••"
-                                            className="w-full px-4 py-2.5 pr-10 rounded-xl text-sm transition-all outline-none"
-                                            style={{ background: "var(--input-bg)", border: `1px solid ${formErrors.password ? "#ef4444" : "var(--input-border)"}`, color: "var(--text-primary)" }}
+                                            className="w-full px-4 py-2.5 pr-10 rounded-xl text-sm transition-all outline-none bg-[#120E0C] text-[#F5EDE6]"
+                                            style={{ border: `1px solid ${formErrors.password ? "#ef4444" : "#1E1410"}` }}
                                         />
                                         <button
                                             type="button"
                                             onClick={() => setShowPassword((v) => !v)}
-                                            className="absolute right-3 top-1/2 -translate-y-1/2 transition-opacity hover:opacity-70"
-                                            style={{ color: "var(--text-secondary)" }}
+                                            className="absolute right-3 top-1/2 -translate-y-1/2 transition-opacity hover:opacity-70 text-[#7D6860]"
                                         >
                                             {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                                         </button>
@@ -564,7 +482,7 @@ export default function TeacherPanel({ userRole }: TeacherPanelProps) {
                                                         <div
                                                             key={i}
                                                             className="h-1 flex-1 rounded-full transition-all duration-300"
-                                                            style={{ background: i <= passwordStrength.score ? barColors[passwordStrength.score - 1] : "var(--border-color)" }}
+                                                            style={{ background: i <= passwordStrength.score ? barColors[passwordStrength.score - 1] : "#1E1410" }}
                                                         />
                                                     );
                                                 })}
@@ -577,15 +495,15 @@ export default function TeacherPanel({ userRole }: TeacherPanelProps) {
                                                     <li key={i} className="flex items-center gap-1.5 text-xs">
                                                         <span
                                                             className="w-3.5 h-3.5 rounded-full flex items-center justify-center shrink-0 transition-colors"
-                                                            style={{ background: c.pass ? "#22c55e20" : "var(--border-color)" }}
+                                                            style={{ background: c.pass ? "#22c55e20" : "#1E1410" }}
                                                         >
                                                             <Check
                                                                 className="w-2 h-2"
                                                                 strokeWidth={3}
-                                                                style={{ color: c.pass ? "#22c55e" : "var(--text-secondary)", opacity: c.pass ? 1 : 0.3 }}
+                                                                style={{ color: c.pass ? "#22c55e" : "#7D6860", opacity: c.pass ? 1 : 0.3 }}
                                                             />
                                                         </span>
-                                                        <span style={{ color: c.pass ? "var(--text-primary)" : "var(--text-secondary)" }}>
+                                                        <span className={c.pass ? "text-[#F5EDE6]" : "text-[#7D6860]"}>
                                                             {c.label}
                                                         </span>
                                                     </li>
@@ -602,7 +520,7 @@ export default function TeacherPanel({ userRole }: TeacherPanelProps) {
 
                                 {/* Confirmar contraseña */}
                                 <div>
-                                    <label className="flex items-center gap-1.5 text-xs font-semibold tracking-wide uppercase mb-1.5" style={{ color: "var(--text-secondary)" }}>
+                                    <label className="flex items-center gap-1.5 text-xs font-semibold tracking-wide uppercase mb-1.5 text-[#7D6860]">
                                         <Shield className="w-3.5 h-3.5" strokeWidth={2.5} /> Confirmar
                                     </label>
                                     <div className="relative">
@@ -611,21 +529,18 @@ export default function TeacherPanel({ userRole }: TeacherPanelProps) {
                                             value={formData.confirmPassword}
                                             onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
                                             placeholder="••••••••"
-                                            className="w-full px-4 py-2.5 pr-10 rounded-xl text-sm transition-all outline-none"
+                                            className="w-full px-4 py-2.5 pr-10 rounded-xl text-sm transition-all outline-none bg-[#120E0C] text-[#F5EDE6]"
                                             style={{
-                                                background: "var(--input-bg)",
                                                 border: `1px solid ${formErrors.confirmPassword ? "#ef4444"
                                                     : passwordsMatch ? "#22c55e"
-                                                        : "var(--input-border)"
+                                                        : "#1E1410"
                                                     }`,
-                                                color: "var(--text-primary)",
                                             }}
                                         />
                                         <button
                                             type="button"
                                             onClick={() => setShowConfirm((v) => !v)}
-                                            className="absolute right-3 top-1/2 -translate-y-1/2 transition-opacity hover:opacity-70"
-                                            style={{ color: "var(--text-secondary)" }}
+                                            className="absolute right-3 top-1/2 -translate-y-1/2 transition-opacity hover:opacity-70 text-[#7D6860]"
                                         >
                                             {showConfirm ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                                         </button>
@@ -644,12 +559,12 @@ export default function TeacherPanel({ userRole }: TeacherPanelProps) {
                         </div>
 
                         {/* Footer */}
-                        <div className="px-6 pb-6 pt-4 flex gap-3" style={{ borderTop: "1px solid var(--border-color)" }}>
+                        <div className="px-6 pb-6 pt-4 flex gap-3 border-t border-[#1E1410]">
                             <button
                                 onClick={handleCreateTeacher}
                                 disabled={isCreating}
-                                className="flex-1 px-4 py-2.5 text-sm text-white font-semibold rounded-xl transition-all hover:opacity-90 disabled:opacity-50 flex items-center justify-center gap-2"
-                                style={{ background: "linear-gradient(135deg, #014287, #1e5fc2)" }}
+                                className="flex-1 px-4 py-2.5 text-sm text-white font-bold rounded-xl transition-all hover:brightness-110 disabled:opacity-50 flex items-center justify-center gap-2 shadow-lg shadow-[#D97757]/20"
+                                style={{ background: "linear-gradient(135deg, #D97757, #C06040)" }}
                             >
                                 {isCreating ? (
                                     <>
@@ -665,8 +580,7 @@ export default function TeacherPanel({ userRole }: TeacherPanelProps) {
                             </button>
                             <button
                                 onClick={() => setShowCreateModal(false)}
-                                className="px-5 py-2.5 text-sm font-semibold rounded-xl transition-colors hover:brightness-95"
-                                style={{ background: "var(--surface-alt)", color: "var(--text-primary)" }}
+                                className="px-5 py-2.5 text-sm font-semibold rounded-xl transition-colors hover:bg-white/5 bg-[#120E0C] text-[#F5EDE6] border border-[#1E1410]"
                             >
                                 Cancelar
                             </button>
@@ -681,27 +595,22 @@ export default function TeacherPanel({ userRole }: TeacherPanelProps) {
             {showDeleteModal && teacherToDelete && (
                 <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
                     <div
-                        className="modal-content rounded-2xl p-6 max-w-sm w-full shadow-2xl"
-                        style={{
-                            background: "var(--modal-bg)",
-                            border: "1px solid var(--border-color)",
-                            animation: "scaleIn .18s ease",
-                        }}
+                        className="rounded-2xl p-6 max-w-sm w-full shadow-2xl bg-[#1A1210] border border-[#1E1410]"
+                        style={{ animation: "scaleIn .18s ease" }}
                     >
-                        <div className="w-14 h-14 rounded-2xl bg-red-500/15 flex items-center justify-center mx-auto mb-4 border border-red-500/20">
+                        <div className="w-14 h-14 rounded-2xl bg-red-500/10 flex items-center justify-center mx-auto mb-4 border border-red-500/20">
                             <Trash2 className="w-7 h-7 text-red-500" strokeWidth={1.5} />
                         </div>
-                        <h3 className="text-lg font-bold text-center mb-2" style={{ color: "var(--text-primary)" }}>¿Eliminar Maestro?</h3>
-                        <p className="text-center text-sm mb-6" style={{ color: "var(--text-secondary)" }}>
+                        <h3 className="text-lg font-bold text-center mb-2 text-[#F5EDE6]">¿Eliminar Maestro?</h3>
+                        <p className="text-center text-sm mb-6 text-[#7D6860]">
                             Estás a punto de eliminar permanentemente a{" "}
-                            <strong style={{ color: "var(--text-primary)" }}>{teacherToDelete.name}</strong>.
+                            <strong className="text-[#F5EDE6]">{teacherToDelete.name}</strong>.
                             Esta acción no se puede deshacer.
                         </p>
                         <div className="flex gap-3">
                             <button
                                 onClick={() => setShowDeleteModal(false)}
-                                className="flex-1 py-2.5 text-sm font-semibold rounded-xl transition-colors hover:brightness-95"
-                                style={{ background: "var(--surface-alt)", color: "var(--text-primary)" }}
+                                className="flex-1 py-2.5 text-sm font-semibold rounded-xl transition-colors hover:bg-white/5 bg-[#120E0C] text-[#F5EDE6] border border-[#1E1410]"
                             >
                                 Cancelar
                             </button>
