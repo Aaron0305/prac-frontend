@@ -131,7 +131,7 @@ export default function TeacherPanel({ userRole }: TeacherPanelProps) {
         try {
             const newTeacher = await teachersApi.create({
                 name: formData.name,
-                email: formData.email + "@whattimeisit.com",
+                email: formData.email + "@redIA.com",
                 password: formData.password,
             });
             setTeachers((prev) => [...prev, newTeacher]);
@@ -226,7 +226,7 @@ export default function TeacherPanel({ userRole }: TeacherPanelProps) {
                     style={{ background: "linear-gradient(135deg, #D97757, #C06040)" }}
                 >
                     <UserPlus className="w-4 h-4" strokeWidth={2} />
-                    Nuevo Teacher
+                    Nuevo Docente
                 </button>
             </div>
 
@@ -384,7 +384,7 @@ export default function TeacherPanel({ userRole }: TeacherPanelProps) {
                                     <UserPlus className="w-5 h-5 text-white" strokeWidth={2} />
                                 </div>
                                 <div>
-                                    <h3 className="text-base font-bold leading-tight text-[#F5EDE6]">Nuevo Teacher</h3>
+                                    <h3 className="text-base font-bold leading-tight text-[#F5EDE6]">Nuevo Docente</h3>
                                     <p className="text-xs mt-0.5 text-[#7D6860]">Completa todos los campos para crear la cuenta.</p>
                                 </div>
                             </div>
@@ -408,7 +408,7 @@ export default function TeacherPanel({ userRole }: TeacherPanelProps) {
                                     type="text"
                                     value={formData.name}
                                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                    placeholder="Nombre completo del teacher"
+                                    placeholder="Nombre completo del docente"
                                     className="w-full px-4 py-2.5 rounded-xl text-sm transition-all outline-none bg-[#120E0C] text-[#F5EDE6]"
                                     style={{ border: `1px solid ${formErrors.name ? "#ef4444" : "#1E1410"}` }}
                                 />
@@ -436,7 +436,7 @@ export default function TeacherPanel({ userRole }: TeacherPanelProps) {
                                         className="flex-1 px-4 py-2.5 text-sm outline-none bg-transparent text-[#F5EDE6]"
                                     />
                                     <span className="pr-4 text-sm font-medium select-none shrink-0 text-[#7D6860]">
-                                        @whattimeisit.com
+                                        @redIA.com
                                     </span>
                                 </div>
                                 {formErrors.email && (
@@ -574,7 +574,7 @@ export default function TeacherPanel({ userRole }: TeacherPanelProps) {
                                 ) : (
                                     <>
                                         <UserPlus className="w-4 h-4" strokeWidth={2} />
-                                        Crear Teacher
+                                        Crear Docente
                                     </>
                                 )}
                             </button>
